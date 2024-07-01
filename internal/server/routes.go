@@ -1,9 +1,11 @@
 package server
 
 import (
-	"encoding/json"
-	"log"
 	"net/http"
+	"os"
+	"path"
+	"path/filepath"
+	"text/template"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -13,19 +15,26 @@ func (s *Server) RegisterRoutes() http.Handler {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 
-	r.Get("/", s.HelloWorldHandler)
+	r.Get("/", s.MainGame)
+
+	// Serve static files
+	workDir, _ := os.Getwd()
+	filesDir := filepath.Join(workDir, "assets")
+	r.Handle("/assets/*", http.StripPrefix("/assets/", http.FileServer(http.Dir(filesDir))))
 
 	return r
 }
 
-func (s *Server) HelloWorldHandler(w http.ResponseWriter, r *http.Request) {
-	resp := make(map[string]string)
-	resp["message"] = "Hello World"
+func (s *Server) MainGame(w http.ResponseWriter, r *http.Request) {
+	fp := path.Join("assets/html", "index.html")
+	tmpl, err := template.ParseFiles(fp)
 
-	jsonResp, err := json.Marshal(resp)
 	if err != nil {
-		log.Fatalf("error handling JSON marshal. Err: %v", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 
-	_, _ = w.Write(jsonResp)
+	if err := tmpl.Execute(w, nil); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
