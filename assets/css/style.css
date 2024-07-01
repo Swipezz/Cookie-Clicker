@@ -4,9 +4,22 @@ body {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
+.leaderboardRank,
+.leaderboardName,
+.leaderboardPoint {
+    border: 1px solid;
+    padding-left: 2%;
+    padding: 2%;
+    margin: 0;
+}
+
+.leaderboardRank {
+    text-align: center;
+}
+
 #container {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 33.3% 33.3% 33.3%;
     height: 100vh;
     align-items: center;
 }
@@ -17,8 +30,13 @@ body {
     margin: 0;
 }
 
-#cookieSide,
 #leaderboardSide {
+    display: grid;
+    grid-template-columns: 10% 45% 45%;
+    margin-left: 5%;
+}
+
+#cookieSide {
     display: flex;
     align-items: center;
     justify-content: center;

@@ -17,6 +17,10 @@ func (s *Server) RegisterRoutes() http.Handler {
 
 	r.Get("/", s.MainGame)
 
+	r.Post("/register", s.Register)
+	r.Post("/login", s.Login)
+	r.Post("/clicked", s.Clicked)
+
 	// Serve static files
 	workDir, _ := os.Getwd()
 	filesDir := filepath.Join(workDir, "assets")
@@ -37,4 +41,16 @@ func (s *Server) MainGame(w http.ResponseWriter, r *http.Request) {
 	if err := tmpl.Execute(w, nil); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+}
+
+func (s *Server) Register(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func (s *Server) Login(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func (s *Server) Clicked(w http.ResponseWriter, r *http.Request) {
+
 }
