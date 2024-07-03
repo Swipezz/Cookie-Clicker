@@ -1,7 +1,7 @@
 package entity
 
 type Player struct {
-	name     string `json:"username"`
-	password string `json:"password"`
-	score    int    `json:"score"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+	Score    int    `json:"score"`
 }

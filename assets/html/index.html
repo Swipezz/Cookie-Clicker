@@ -16,7 +16,7 @@
         </div>
         <div id="cookieSide">
             <div id="cookie">
-                <p id="score">0</p>
+                <p id="score">{{.Score}}</p>
                 <div id="cookieBorder">
                     <div id="cookieInside">
                         
@@ -25,14 +25,15 @@
             </div>
         </div>
         <div id="account">
-            <p id="accountName">Adam</p>
-            <input type="text" id="usernameInput" placeholder="Username">
-            <input type="text" id="passwordInput" placeholder="Password">
-            <button id="syncBtn">Sync</button>
-            <br>
-            <button id="loginBtn">Login</button>
-            <button id="registerBtn">Register</button>
-            <button id="logoutBtn">Logout</button>
+            <p id="accountName">{{.Username}}</p>
+            <form>
+                <input type="text" name="usernameInput" placeholder="Username">
+                <input type="text" name="passwordInput" placeholder="Password">
+                <button id="syncBtn">Sync</button>
+                <br>
+                <button id="loginBtn" hx-post="/login" hx-target="#accountName">Login</button>
+                <button id="registerBtn">Register</button>
+            </form>
         </div>
     </div>
 </body>
